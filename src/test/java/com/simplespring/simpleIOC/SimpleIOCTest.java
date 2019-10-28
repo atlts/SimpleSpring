@@ -1,4 +1,7 @@
-package simpleIOC;
+package com.simplespring.simpleIOC;
+
+import com.simplespring.Car;
+import com.simplespring.Wheel;
 
 public class SimpleIOCTest {
     public static void main(String[] args) throws Exception {
