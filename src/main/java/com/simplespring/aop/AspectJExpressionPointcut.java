@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 就是个判断expression是否能匹配到对应的类和方法的
+ * 判断相应类的方法是否为切点
  */
 public class AspectJExpressionPointcut implements Pointcut, ClassFilter,MethodMatcher {
     private PointcutParser pointcutParser;//用来帮助判断匹配的工具类

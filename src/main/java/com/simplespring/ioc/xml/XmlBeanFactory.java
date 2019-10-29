@@ -15,10 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 这个类要做的就是把两个list一个map填满
+ */
 public class XmlBeanFactory implements BeanFactory {
+
     private Map<String, BeanDefinition>beanDefinitionMap = new HashMap<String, BeanDefinition>();
     private List<String> beanDefinitionNames = new ArrayList<String>();
     private List<BeanPostProcessor>beanPostProcessors = new ArrayList<BeanPostProcessor>();
+
+
     private XmlBeanDefinitionReader beanDefinitionReader;
 
     public XmlBeanFactory(String location)throws Exception{
@@ -99,7 +105,7 @@ public class XmlBeanFactory implements BeanFactory {
     }
 
     private void loadBeanDefinitions(String location) throws Exception{
-        beanDefinitionReader.loadBeanDefination(location);
+        beanDefinitionReader.loadBeanDefinition(location);
         registerBeanDefinition();
         registerBeanPostProcessor();
     }
@@ -115,13 +121,24 @@ public class XmlBeanFactory implements BeanFactory {
         }
     }
 
+    /**
+     * 将bean中BeanPostProcessor属性填充进beanPostProcessor中
+     * @throws Exception
+     */
     public void registerBeanPostProcessor() throws Exception{
+        /**
+         * 其实就是看有没有bean实现了BeanPostProcessor，也就是有没有AspectJAwareAdvisorAutoProxyCreator 类
+         */
         List beans = getBeanForType(BeanPostProcessor.class);
         for(Object bean :beans){
             addBeanPostProcessor((BeanPostProcessor)bean);
         }
     }
 
+    /**
+     *
+     * @param beanPostProcessor
+     */
     public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor){
         beanPostProcessors.add(beanPostProcessor);
     }

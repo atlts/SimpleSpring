@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class XmlBeanDefinitionReader {
     /**
-     * 这个作为BeanDefination的容器
+     * 这个作为BeanDefinition的容器，把属性填充进list里面就完事了
      */
     private Map<String, BeanDefinition>registry;
     public XmlBeanDefinitionReader(){
@@ -29,13 +29,13 @@ public class XmlBeanDefinitionReader {
      * @param location
      * @throws Exception
      */
-    public void loadBeanDefination(String location)throws Exception{
+    public void loadBeanDefinition(String location)throws Exception{
         InputStream inputStream = new FileInputStream(location);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = factory.newDocumentBuilder();
         Document doc = docBuilder.parse(inputStream);
         Element root = doc.getDocumentElement();
-        parseBeanDefinations(root);
+        parseBeanDefinitions(root);
     }
 
     /**
@@ -44,13 +44,13 @@ public class XmlBeanDefinitionReader {
      * @throws Exception
      * 将xml文件中一个一个bean填充好
      */
-    private void parseBeanDefinations(Element root)throws Exception{
+    private void parseBeanDefinitions(Element root)throws Exception{
         NodeList nodes = root.getChildNodes();
         for(int i = 0;i < nodes.getLength();i++){
-            Node node = nodes.item(i);//这个应该是获得bean哪一行的属性了
+            Node node = nodes.item(i);//这个应该是获得bean那一行的属性了
             if(node instanceof Element){
                 Element ele = (Element)node;
-                parseBeanDefination(ele);
+                parseBeanDefinition(ele);
             }
         }
     }
@@ -63,7 +63,7 @@ public class XmlBeanDefinitionReader {
      *此时还没有注入bean属性
      */
 
-    private void parseBeanDefination(Element ele)throws Exception{
+    private void parseBeanDefinition(Element ele)throws Exception{
         String name = ele.getAttribute("id");
         String className = ele.getAttribute("class");
         BeanDefinition beanDefinition = new BeanDefinition();

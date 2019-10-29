@@ -1,5 +1,6 @@
 package com.simplespring.ioc;
 
+
 public class BeanDefinition {
     private Object bean;
     private Class beanClass;
